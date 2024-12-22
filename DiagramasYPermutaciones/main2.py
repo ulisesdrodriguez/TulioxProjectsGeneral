@@ -65,33 +65,44 @@ def mostrar_permutaciones():
     resultados_texto.pack(pady=20)
 
     # Mostrar los resultados de Image1 y Image2 encontrados en Image3
-    resultados_texto.insert(tk.END, "Resultados de Image1 y Image2 encontrados en Image3:\n")
-    print(f"permutaciones encontradas: {len(results1_2_3)}")
+    resultados_texto.insert(tk.END, f"Permutaciones encontradas Ger vs Ra1: {len(matches1_2)}\n")
+    resultados_texto.insert(tk.END, f": {matches1_2}\n")
+    resultados_texto.insert(tk.END, f"Permutaciones encontradas en  Ger vs Ra1 y Ra2: {len(results1_2_3)}\n")
+    resultados_texto.insert(tk.END, f": {results1_2_3}\n")
 
-    #for result in results1_2_3:
-    #    resultados_texto.insert(tk.END, f"Sequence {result[0]} found in {result[1]}, {result[2]} and {result[3]}\n")
+    for result1 in matches1_2:
+        resultados_texto.insert(tk.END, f"Sequence {result1[0]} found in {result1[1]}, {result1[2]} and {result1[3]}\n")
+
+    for result in results1_2_3:
+        resultados_texto.insert(tk.END, f"Sequence {result[0]} found in {result[1]}, {result[2]} and {result[3]}\n")
+
+
 
 
 # Coordenadas del primer formulario en forma de rombo
 coords_1 = [
     (1, 6),
-    (2, 5), (2, 7),
-    (3, 4), (3, 6), (3, 8),
-    (4, 3), (4, 5), (4, 7), (4, 9),
-    (5, 2), (5, 4), (5, 6), (5, 8), (5, 10),
-    (6, 1), (6, 3), (6, 5), (6, 7), (6, 9), (6, 11),
-    (7, 0), (7, 2), (7, 4), (7, 6), (7, 8), (7, 10), (7, 12),
-    (8, 1), (8, 3), (8, 9), (8, 11), (9, 2), (9, 4),
-    (9, 6), (9, 8), (9, 10), (10, 3), (10, 5), (10, 7),
-    (10, 9), (11, 4), (11, 6), (11, 8), (12, 5),
-    (12, 7), (13, 6)
+    (2, 6),
+    (3, 5), (3, 7),
+    (4, 4), (4, 6), (4, 8),
+    (5, 3), (5, 4), (5, 6), (5, 8), (5, 9),
+    (6, 2), (6, 10),
+    (7, 0), (7, 1), (7, 3), (7, 4),    (7, 6),   (7, 8), (7, 9), (7, 11), (7, 12),
+    (8, 2), (8, 10),
+    (9, 3), (9, 4), (9, 6), (9, 8), (9, 9),
+    (10, 4), (10, 6), (10, 8),
+    (11, 5), (11, 7),
+    (12, 6),
+    (13, 6),
+
+
 ]
 
 # Coordenadas del segundo formulario (modificadas)
 coords_2 = [
     (0, 3), (0, 6), (0, 9),
     (2, 6),
-    (3, 3), (3, 4), (3, 8), (3, 9),
+    (3, 3), (3, 5), (3, 7), (3, 9),
     (4, 3), (4, 9),
     (6, 6),
     (7, 5), (7, 7),
@@ -105,7 +116,7 @@ coords_2 = [
 coords_3 = [
     (0, 3), (0, 6), (0, 9),
     (2, 6),
-    (3, 3), (3, 4), (3, 8), (3, 9),
+    (3, 3), (3, 5), (3, 7), (3, 9),
     (4, 3), (4, 9),
     (6, 6),
     (7, 5), (7, 7),
