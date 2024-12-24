@@ -8,7 +8,9 @@ from Functions.Functions import *
 datos = {
     "Diagrama_Ger": [],
     "Diagrama_Ra_1": [],
-    "Diagrama_Ra_2": []
+    "Diagrama_Ra_2": [],
+    "Diagrama_Texte_1": [],
+    "Diagrama_Texte_2": []
 }
 
 
@@ -23,7 +25,7 @@ def guardar_datos(entries, key):
         for entry in entries:
             entry.delete(0, tk.END)
     else:
-        messagebox.showwarning("Advertencia", "Por favor, completa al menos un campo")
+        messagebox.showwarning("Advertencia", "Ccompleta al menos un campo")
 
 
 # Función para crear una ventana con el formulario
@@ -34,13 +36,11 @@ def crear_ventana(coords, titulo, key):
 
     entries = []
     for r, c in coords:
-        entry = tk.Entry(ventana, width=3, bg="gray20",
-                         fg="white")  # Cambiar el fondo de las entradas a gris oscuro y el texto a blanco
+        entry = tk.Entry(ventana, width=3, bg="gray20",fg="white")  # Cambiar el fondo de las entradas a gris oscuro y el texto a blanco
         entry.grid(row=r, column=c, padx=5, pady=5)
         entries.append(entry)
 
-    boton_guardar = tk.Button(ventana, text="Guardar", command=lambda: guardar_datos(entries, key), bg="gray30",
-                              fg="white")  # Cambiar el fondo del botón a gris oscuro y el texto a blanco
+    boton_guardar = tk.Button(ventana, text="Guardar", command=lambda: guardar_datos(entries, key), bg="gray30",fg="white")  # Cambiar el fondo del botón a gris oscuro y el texto a blanco
     boton_guardar.grid(row=14, column=6, columnspan=3, pady=10)
 
 
@@ -50,31 +50,52 @@ def mostrar_permutaciones():
     image1 = datos["Diagrama_Ger"]
     image2 = datos["Diagrama_Ra_1"]
     image3 = datos["Diagrama_Ra_2"]
+    image4 = datos["Diagrama_Texte_1"]
+    image5 = datos["Diagrama_Texte_2"]
 
-    # Buscar permutaciones y coincidencias
+    # Ger y Ra1, Ra2
     matches1_2 = find_permutations(image1, image2)
     results1_2_3 = find_matches_in_third_image(matches1_2, image3)
 
-    # Crear una ventana para mostrar los resultados
+    # Ger y Texte1, Texte2
+    matches1_2_texte = find_permutations(image1, image4)
+    results1_2_3_texte = find_matches_in_third_image(matches1_2_texte, image5)
+
+
+
+
     ventana_resultados = tk.Toplevel()
     ventana_resultados.title("Resultados de Permutaciones")
     ventana_resultados.configure(bg="#ebf5fb")
 
-    # Mostrar los resultados en la ventana
+
     resultados_texto = tk.Text(ventana_resultados, width=100, height=30, bg="#ebf5fb", fg="black")
     resultados_texto.pack(pady=20)
 
-    # Mostrar los resultados de Image1 y Image2 encontrados en Image3
+    # Ger y Ra1, Ra2
     resultados_texto.insert(tk.END, f"Permutaciones encontradas Ger vs Ra1: {len(matches1_2)}\n")
     resultados_texto.insert(tk.END, f": {matches1_2}\n")
     resultados_texto.insert(tk.END, f"Permutaciones encontradas en  Ger vs Ra1 y Ra2: {len(results1_2_3)}\n")
     resultados_texto.insert(tk.END, f": {results1_2_3}\n")
+    # Ger y Ra1, Ra2
+    resultados_texto.insert(tk.END, f"Permutaciones encontradas Ger vs Texte1: {len(matches1_2_texte)}\n")
+    resultados_texto.insert(tk.END, f": {matches1_2_texte}\n")
+    resultados_texto.insert(tk.END, f"Permutaciones encontradas en  Ger vs Texte1 y Texte2: {len(results1_2_3_texte)}\n")
+    resultados_texto.insert(tk.END, f": {results1_2_3_texte}\n")
+
 
     for result1 in matches1_2:
         resultados_texto.insert(tk.END, f"Sequence {result1[0]} found in {result1[1]}, {result1[2]} and {result1[3]}\n")
 
     for result in results1_2_3:
         resultados_texto.insert(tk.END, f"Sequence {result[0]} found in {result[1]}, {result[2]} and {result[3]}\n")
+
+
+    for result1_texte in matches1_2_texte:
+        resultados_texto.insert(tk.END, f"Sequence {result1_texte[0]} found in {result1_texte[1]}, {result1_texte[2]} and {result1_texte[3]}\n")
+
+    for result_texte in results1_2_3_texte:
+        resultados_texto.insert(tk.END, f"Sequence {result_texte[0]} found in {result_texte[1]}, {result_texte[2]} and {result_texte[3]}\n")
 
 
 
@@ -126,6 +147,23 @@ coords_3 = [
     (11, 1), (11, 3), (11, 5), (11, 7), (11, 9), (11, 11)
 ]
 
+coords_texte_1 = [
+    (0, 0), (0, 2), (0, 4),(0, 6),
+    (1, 1), (1, 3), (1, 5),
+    (2, 2), (2, 4),
+    (3, 0), (3, 1), (3, 3), (3, 5), (3, 6),
+    (4, 0), (4, 1), (4, 2), (4, 3), (4, 4), (4, 5), (4, 6),
+    (5, 0), (5, 1), (5, 3), (5, 5), (5, 6)
+]
+
+coords_texte_2 = [
+    (0, 0), (0, 2), (0, 4),(0, 6),
+    (1, 1), (1, 3), (1, 5),
+    (2, 2), (2, 4),
+    (3, 0), (3, 1), (3, 3), (3, 5), (3, 6),
+    (4, 0), (4, 1), (4, 2), (4, 3), (4, 4), (4, 5), (4, 6),
+    (5, 0), (5, 1), (5, 3), (5, 5), (5, 6)
+]
 # Crear la ventana principal
 ventana_principal = tk.Tk()
 ventana_principal.title("App de Tuliox que nos dara money")
@@ -136,23 +174,28 @@ image_path = "excaliburicon.jpg"  # Cambia esto a la ruta de tu imagen
 image = Image.open(image_path)
 photo = ImageTk.PhotoImage(image)  # Crear un widget Label para la imagen
 image_label = tk.Label(ventana_principal, image=photo)
-image_label.place(relx=0.5, rely=0.5, anchor="center")
+image_label.place(relx=0.5, rely=0.6, anchor="center")
 
 # Botones para abrir las otras ventanas
-boton1 = tk.Button(ventana_principal, text="Diagrama Ger",
-                   command=lambda: crear_ventana(coords_1, "Diagrama Ger", "Diagrama_Ger"))
+boton1 = tk.Button(ventana_principal, text="Diagrama Ger",command=lambda: crear_ventana(coords_1, "Diagrama Ger", "Diagrama_Ger"))
 boton1.pack(pady=10)
 
-boton2 = tk.Button(ventana_principal, text="Diagrama Ra 1",
-                   command=lambda: crear_ventana(coords_2, "Diagrama Ra 1", "Diagrama_Ra_1"))
+boton2 = tk.Button(ventana_principal, text="Diagrama Ra 1",command=lambda: crear_ventana(coords_2, "Diagrama Ra 1", "Diagrama_Ra_1"))
 boton2.pack(pady=10)
 
-boton3 = tk.Button(ventana_principal, text="Diagrama Ra 2",
-                   command=lambda: crear_ventana(coords_3, "Diagrama Ra 2", "Diagrama_Ra_2"))
+boton3 = tk.Button(ventana_principal, text="Diagrama Ra 2",command=lambda: crear_ventana(coords_3, "Diagrama Ra 2", "Diagrama_Ra_2"))
 boton3.pack(pady=10)
+
+boton_texte_1 = tk.Button(ventana_principal, text="Diagrama Texte 1",command=lambda: crear_ventana(coords_texte_1, "Diagrama Texte 1", "Diagrama_Texte_1"))
+boton_texte_1.pack(pady=10)
+
+boton_texte_2 = tk.Button(ventana_principal, text="Diagrama Texte 2",command=lambda: crear_ventana(coords_texte_2, "Diagrama Texte 2", "Diagrama_Texte_2"))
+boton_texte_2.pack(pady=10)
 
 boton4 = tk.Button(ventana_principal, text="Permutaciones", command=mostrar_permutaciones)
 boton4.pack(pady=10)
+
+
 
 # Iniciar el bucle de la interfaz gráfica
 ventana_principal.mainloop()
