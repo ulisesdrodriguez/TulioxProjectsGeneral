@@ -14,8 +14,7 @@ datos = {
 }
 
 
-# Función para guardar datos en la lista
-def guardar_datos(entries, key):
+def guardar_datos(entries, key, ventana):
     valores = [entry.get() for entry in entries]
     concatenated_values = ' '.join(valores)
 
@@ -24,8 +23,9 @@ def guardar_datos(entries, key):
         messagebox.showinfo("Guardado", "Datos guardados correctamente")
         for entry in entries:
             entry.delete(0, tk.END)
+        ventana.destroy()  # Cerrar la ventana
     else:
-        messagebox.showwarning("Advertencia", "Ccompleta al menos un campo")
+        messagebox.showwarning("Advertencia", "Completa al menos un campo")
 
 
 # Función para crear una ventana con el formulario
@@ -40,7 +40,7 @@ def crear_ventana(coords, titulo, key):
         entry.grid(row=r, column=c, padx=5, pady=5)
         entries.append(entry)
 
-    boton_guardar = tk.Button(ventana, text="Guardar", command=lambda: guardar_datos(entries, key), bg="gray30",fg="white")  # Cambiar el fondo del botón a gris oscuro y el texto a blanco
+    boton_guardar = tk.Button(ventana, text="Guardar", command=lambda: guardar_datos(entries, key, ventana), bg="gray30", fg="white")
     boton_guardar.grid(row=14, column=6, columnspan=3, pady=10)
 
 
@@ -53,49 +53,28 @@ def mostrar_permutaciones():
     image4 = datos["Diagrama_Texte_1"]
     image5 = datos["Diagrama_Texte_2"]
 
-    # Ger y Ra1, Ra2
-    matches1_2 = find_permutations(image1, image2)
-    results1_2_3 = find_matches_in_third_image(matches1_2, image3)
-
-    # Ger y Texte1, Texte2
-    matches1_2_texte = find_permutations(image1, image4)
-    results1_2_3_texte = find_matches_in_third_image(matches1_2_texte, image5)
-
-
-
+    Ger_Ra1_Ra2 = run_prime3_pipeline(image1, image2, image3)
+    #Ger_Texte1_Texte2 = run_prime3_pipeline(image1, image4, image5)
 
     ventana_resultados = tk.Toplevel()
     ventana_resultados.title("Resultados de Permutaciones")
     ventana_resultados.configure(bg="#ebf5fb")
 
-
     resultados_texto = tk.Text(ventana_resultados, width=100, height=30, bg="#ebf5fb", fg="black")
     resultados_texto.pack(pady=20)
 
-    # Ger y Ra1, Ra2
-    resultados_texto.insert(tk.END, f"Permutaciones encontradas Ger vs Ra1: {len(matches1_2)}\n")
-    resultados_texto.insert(tk.END, f": {matches1_2}\n")
-    resultados_texto.insert(tk.END, f"Permutaciones encontradas en  Ger vs Ra1 y Ra2: {len(results1_2_3)}\n")
-    resultados_texto.insert(tk.END, f": {results1_2_3}\n")
-    # Ger y Ra1, Ra2
-    resultados_texto.insert(tk.END, f"Permutaciones encontradas Ger vs Texte1: {len(matches1_2_texte)}\n")
-    resultados_texto.insert(tk.END, f": {matches1_2_texte}\n")
-    resultados_texto.insert(tk.END, f"Permutaciones encontradas en  Ger vs Texte1 y Texte2: {len(results1_2_3_texte)}\n")
-    resultados_texto.insert(tk.END, f": {results1_2_3_texte}\n")
+    # Ger vs Ra1
+    resultados_texto.insert(tk.END, f"Permutaciones encontradas en Ger vs Ra1 vs Ra2: {len(Ger_Ra1_Ra2)}\n")
+    resultados_texto.insert(tk.END, f"Contenido: {Ger_Ra1_Ra2}\n")
+    for item in Ger_Ra1_Ra2:
+        resultados_texto.insert(tk.END, f": {item}\n")
+
+    #resultados_texto.insert(tk.END, f"Permutaciones encontradas en Ger vs Ra2: {len(Ger_Texte1_Texte2)}\n")
+    #for item in Ger_Texte1_Texte2:
+    #    resultados_texto.insert(tk.END, f": {item}\n")
 
 
-    for result1 in matches1_2:
-        resultados_texto.insert(tk.END, f"Sequence {result1[0]} found in {result1[1]}, {result1[2]} and {result1[3]}\n")
-
-    for result in results1_2_3:
-        resultados_texto.insert(tk.END, f"Sequence {result[0]} found in {result[1]}, {result[2]} and {result[3]}\n")
-
-
-    for result1_texte in matches1_2_texte:
-        resultados_texto.insert(tk.END, f"Sequence {result1_texte[0]} found in {result1_texte[1]}, {result1_texte[2]} and {result1_texte[3]}\n")
-
-    for result_texte in results1_2_3_texte:
-        resultados_texto.insert(tk.END, f"Sequence {result_texte[0]} found in {result_texte[1]}, {result_texte[2]} and {result_texte[3]}\n")
+    
 
 
 
