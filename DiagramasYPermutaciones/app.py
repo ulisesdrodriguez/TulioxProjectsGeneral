@@ -53,11 +53,11 @@ def mostrar_permutaciones():
     image4 = datos["Diagrama_Texte_1"]
     image5 = datos["Diagrama_Texte_2"]
 
-    Ger_Ra1_ra2 = run_prime3_pipeline(image1, image2, image3)
 
 
-    Ger_zigzag = search_zigzag(image1)
-    Ra1_zigzag = search_zigzag(image2)
+    Ger_Ra1 = main_prime4(image1, image2)
+    Ger_Ra2 = main_prime4(image1, image2)
+
 
     ventana_resultados = tk.Toplevel()
     ventana_resultados.title("Resultados de Permutaciones")
@@ -67,11 +67,11 @@ def mostrar_permutaciones():
     resultados_texto.pack(pady=20)
 
     # Ger vs Ra1
-    resultados_texto.insert(tk.END, f"Permutaciones encontradas en Ger vs Ra1 vs Ra2: {len(Ger_Ra1_ra2)}\n")
-    resultados_texto.insert(tk.END, f"Contenido:\n")
+    resultados_texto.insert(tk.END, f"Permutaciones encontradas en Ger vs Ra1: {len(Ger_Ra1)}\n")
+    resultados_texto.insert(tk.END, f"\n{Ger_Ra1}\n")
 
-    for key, value in Ger_Ra1_ra2.items():
-        resultados_texto.insert(tk.END, f"{key}: {value}\n\n")
+    #for key, value in Ger_Ra1.items():
+    #    resultados_texto.insert(tk.END, f"{Ger_Ra1}")
 
 
     
@@ -131,7 +131,7 @@ coords_texte_1 = [
     (1, 1), (1, 3), (1, 5),
     (2, 2), (2, 4),
     (3, 0), (3, 1), (3, 3), (3, 5), (3, 6),
-    (4, 0), (4, 1), (4, 2), (4, 3), (4, 4), (4, 5), (4, 6),
+    (4, 0), (4, 1), (4, 2), (4, 4), (4, 5), (4, 6),
     (5, 0), (5, 1), (5, 3), (5, 5), (5, 6)
 ]
 
@@ -140,7 +140,7 @@ coords_texte_2 = [
     (1, 1), (1, 3), (1, 5),
     (2, 2), (2, 4),
     (3, 0), (3, 1), (3, 3), (3, 5), (3, 6),
-    (4, 0), (4, 1), (4, 2), (4, 3), (4, 4), (4, 5), (4, 6),
+    (4, 0), (4, 1), (4, 2), (4, 4), (4, 5), (4, 6),
     (5, 0), (5, 1), (5, 3), (5, 5), (5, 6)
 ]
 # Crear la ventana principal
