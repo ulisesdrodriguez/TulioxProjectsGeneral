@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 from itertools import permutations
 from Functions.Functions import *
 
-# Lista global para almacenar los datos
+
 datos = {
     "Diagrama_Ger": [],
     "Diagrama_Ra_1": [],
@@ -18,25 +18,25 @@ def guardar_datos(entries, key, ventana):
     valores = [entry.get() for entry in entries]
     concatenated_values = ' '.join(valores)
 
-    if concatenated_values.strip():  # Asegurarse de que no esté vacío
-        datos[key].append(concatenated_values.split())  # Guardar como lista de listas
+    if concatenated_values.strip():
+        datos[key].append(concatenated_values.split())
         messagebox.showinfo("Guardado", "Datos guardados correctamente")
         for entry in entries:
             entry.delete(0, tk.END)
-        ventana.destroy()  # Cerrar la ventana
+        ventana.destroy()
     else:
         messagebox.showwarning("Advertencia", "Completa al menos un campo")
 
 
-# Función para crear una ventana con el formulario
+
 def crear_ventana(coords, titulo, key):
     ventana = tk.Toplevel()
     ventana.title(titulo)
-    ventana.configure(bg="#117864")  # Cambiar el color de fondo de la ventana secundaria al color RGB especificado
+    ventana.configure(bg="#117864")
 
     entries = []
     for r, c in coords:
-        entry = tk.Entry(ventana, width=3, bg="gray20",fg="white")  # Cambiar el fondo de las entradas a gris oscuro y el texto a blanco
+        entry = tk.Entry(ventana, width=3, bg="gray20",fg="white")
         entry.grid(row=r, column=c, padx=5, pady=5)
         entries.append(entry)
 
@@ -44,9 +44,8 @@ def crear_ventana(coords, titulo, key):
     boton_guardar.grid(row=14, column=6, columnspan=3, pady=10)
 
 
-# Función para mostrar permutaciones comunes
+
 def mostrar_permutaciones():
-    # Obtener los datos guardados como imágenes
     image1 = datos["Diagrama_Ger"]
     image2 = datos["Diagrama_Ra_1"]
     image3 = datos["Diagrama_Ra_2"]
@@ -79,7 +78,7 @@ def mostrar_permutaciones():
 
 
 
-# Coordenadas del primer formulario en forma de rombo
+
 coords_1 = [
     (1, 6),
     (2, 6),
@@ -98,7 +97,7 @@ coords_1 = [
 
 ]
 
-# Coordenadas del segundo formulario (modificadas)
+
 coords_2 = [
     (0, 3), (0, 6), (0, 9),
     (2, 6),
@@ -112,7 +111,7 @@ coords_2 = [
     (11, 1), (11, 3), (11, 5), (11, 7), (11, 9), (11, 11)
 ]
 
-# Coordenadas del tercer formulario (modificadas)
+
 coords_3 = [
     (0, 3), (0, 6), (0, 9),
     (2, 6),
@@ -143,19 +142,19 @@ coords_texte_2 = [
     (4, 0), (4, 1), (4, 2), (4, 4), (4, 5), (4, 6),
     (5, 0), (5, 1), (5, 3), (5, 5), (5, 6)
 ]
-# Crear la ventana principal
+
 ventana_principal = tk.Tk()
 ventana_principal.title("App de Tuliox que nos dara money")
-ventana_principal.geometry("600x750")  # Cambia el tamaño según tus necesidades
-ventana_principal.configure(bg="#ebf5fb")  # Cambiar el color de fondo de la ventana principal al color RGB especificado
+ventana_principal.geometry("600x750")
+ventana_principal.configure(bg="#ebf5fb")
 
-image_path = "excaliburicon.jpg"  # Cambia esto a la ruta de tu imagen
+image_path = "excaliburicon.jpg"
 image = Image.open(image_path)
-photo = ImageTk.PhotoImage(image)  # Crear un widget Label para la imagen
+photo = ImageTk.PhotoImage(image)
 image_label = tk.Label(ventana_principal, image=photo)
 image_label.place(relx=0.5, rely=0.6, anchor="center")
 
-# Botones para abrir las otras ventanas
+
 boton1 = tk.Button(ventana_principal, text="Diagrama Ger",command=lambda: crear_ventana(coords_1, "Diagrama Ger", "Diagrama_Ger"))
 boton1.pack(pady=10)
 
@@ -175,6 +174,4 @@ boton4 = tk.Button(ventana_principal, text="Permutaciones", command=mostrar_perm
 boton4.pack(pady=10)
 
 
-
-# Iniciar el bucle de la interfaz gráfica
 ventana_principal.mainloop()

@@ -2,7 +2,7 @@ import numpy as np
 from itertools import permutations
 
 
-# Función para rotar imágenes
+
 def rotate_image_90(image):
     return np.rot90(image).tolist()
 
@@ -16,18 +16,13 @@ def rotate_image_270(image):
 
 
 def generate_rotations(image):
-    """
-    Genera todas las rotaciones posibles de una imagen.
-    """
     return [image, rotate_image_90(image), rotate_image_180(image), rotate_image_270(image)]
 
 
-# Función para obtener columnas
 def get_columns(image):
     return [[row[i] for row in image] for i in range(len(image[0]))]
 
 
-# Función para obtener diagonales principales (izquierda a derecha)
 def get_diagonals_lr(image):
     diagonals = []
     for i in range(len(image) + len(image[0]) - 1):
@@ -38,7 +33,6 @@ def get_diagonals_lr(image):
     return diagonals
 
 
-# Función para obtener diagonales secundarias (derecha a izquierda)
 def get_diagonals_rl(image):
     diagonals = []
     for i in range(len(image) + len(image[0]) - 1):
@@ -49,7 +43,6 @@ def get_diagonals_rl(image):
     return diagonals
 
 
-# Función para búsqueda por criterios específicos
 def search_by_criteria(image, sequence_length=4, criteria=[]):
     results = {}
     rows, cols = len(image), len(image[0])
@@ -111,15 +104,7 @@ def search_by_criteria(image, sequence_length=4, criteria=[]):
     return results
 
 
-# Función para búsqueda de patrones personalizados
 def search_custom_pattern(image, pattern, sequence_length=4):
-    """
-    Busca secuencias siguiendo un patrón específico en la imagen.
-    :param image: Matriz donde buscar.
-    :param pattern: Lista de movimientos (ejemplo: [(1, 0), (0, 1), ...]).
-    :param sequence_length: Longitud de la secuencia a buscar.
-    :return: Resultados con secuencias encontradas.
-    """
     rows, cols = len(image), len(image[0])
     results = {}
 
@@ -149,7 +134,6 @@ def search_custom_pattern(image, pattern, sequence_length=4):
     return results
 
 
-# Función para integrar rotaciones en las búsquedas
 def search_in_image_with_rotations(image, sequence_length=4, criteria=[], custom_pattern=None):
     results = {}
     rotations = generate_rotations(image)
@@ -175,7 +159,6 @@ def search_in_image_with_rotations(image, sequence_length=4, criteria=[], custom
     return results
 
 
-# Flujo principal
 def main_prime4(image1, image2, image3=None, sequence_length=4, custom_pattern=None):
     all_criteria = [
         "horizontal_lr",
