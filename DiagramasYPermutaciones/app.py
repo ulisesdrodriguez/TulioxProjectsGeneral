@@ -52,13 +52,14 @@ def mostrar_permutaciones():
     image4 = datos["Diagrama_Texte_1"]
     image5 = datos["Diagrama_Texte_2"]
 
-    resultados_generales = analizar_imagenes(image1, image2, image3, validar_en_tercera=True)
 
-
-    resultados_patrones_1 = buscar_patrones_especificos(image1, PATRONES_ESPECIFICOS)
-    resultados_patrones_2 = buscar_patrones_especificos(image2, PATRONES_ESPECIFICOS)
-    resultados_patrones_3 = buscar_patrones_especificos(image3, PATRONES_ESPECIFICOS)
-
+    resultados_Ger_Ra1_Ra2 = analizar_imagenes(image1, image2, image3, validar_en_tercera=True)
+    resultados_Ger_Texte1_Texte2 = analizar_imagenes(image1, image4, image5, validar_en_tercera=True)
+    resultados_patrones_Ger = buscar_patrones_especificos(image1, PATRONES_ESPECIFICOS)
+    resultados_patrones_Ra1 = buscar_patrones_especificos(image2, PATRONES_ESPECIFICOS)
+    resultados_patrones_Ra2 = buscar_patrones_especificos(image3, PATRONES_ESPECIFICOS)
+    resultados_patrones_Texte1 = buscar_patrones_especificos(image4, PATRONES_ESPECIFICOS)
+    resultados_patrones_Texte2 = buscar_patrones_especificos(image5, PATRONES_ESPECIFICOS)
 
     ventana_resultados = tk.Toplevel()
     ventana_resultados.title("Resultados de Permutaciones")
@@ -68,11 +69,12 @@ def mostrar_permutaciones():
     resultados_texto.pack(pady=20)
 
     # Ger vs Ra1
-    resultados_texto.insert(tk.END, f"Permutaciones encontradas: {len(resultados_generales)}\n")
-    resultados_texto.insert(tk.END, f"\n{resultados_generales}\n")
-    resultados_texto.insert(tk.END, f"\n Patrones especificos Ger: {resultados_patrones_1}\n")
-    resultados_texto.insert(tk.END, f"\n Patrones especificos Ra1: {resultados_patrones_2}\n")
-    resultados_texto.insert(tk.END, f"\n Patrones especificos Ra2: {resultados_patrones_3}\n")
+    resultados_texto.insert(tk.END, f"Permutaciones encontradas en Ger y Ra1 y Ra2: {len(resultados_Ger_Ra1_Ra2)}\n")
+    resultados_texto.insert(tk.END, f"\n{resultados_Ger_Ra1_Ra2}\n")
+    resultados_texto.insert(tk.END, f"Permutaciones encontradas en Ger y Texte1 y Texte2: {len(resultados_Ger_Texte1_Texte2)}\n")
+    resultados_texto.insert(tk.END, f"\n{resultados_Ger_Texte1_Texte2}\n")
+
+
 
     #for key, value in Ger_Ra1.items():
     #    resultados_texto.insert(tk.END, f"{Ger_Ra1}")
